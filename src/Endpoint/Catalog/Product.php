@@ -12,13 +12,16 @@ class Product extends Endpoint
      *
      * GET /V1/products
      *
-     * @param  string $scope
      * @param  array  $searchCriteria
      * @return array
      */
-    public function search(string $scope, array $searchCriteria)
+    public function search(array $searchCriteria)
     {
-        $path = "$scope/V1/products";
-        $this->client->get('products');
+        $path = "/V1/products";
+        $path .= '?' . http_build_query([
+            'searchCriteria' => $searchCriteria,
+        ]);
+        $body = $this->client->get($path);
+        return $body;
     }
 }

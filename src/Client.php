@@ -4,6 +4,7 @@ namespace Alanaktion\Magento;
 
 use Alanaktion\Magento\Traits\EndpointLookup;
 use GuzzleHttp\Client as HttpClient;
+use GuzzleHttp\Psr7;
 
 class Client
 {
@@ -81,9 +82,10 @@ class Client
      * Perform a GET request on the API
      *
      * @param  string $path
-     * @return string
+     * @return mixed
+     * @throws MagentoErrorException
      */
-    public function get(string $path) : string
+    public function get(string $path)
     {
         $client = new HttpClient();
         $url = "$this->baseUrl/rest/$this->scope/" . ltrim($path, '/');
@@ -95,7 +97,13 @@ class Client
         if ($this->token) {
             $options['headers']['Authorization'] = "Bearer $this->token";
         }
+
         $response = $client->request('GET', $url, $options);
-        return $response->getBody();
+        $body = $response->getBody();
+        $contentType = Psr7\parse_header($response->getHeader('Content-Type'));
+        if ($contentType[0][0] == 'application/json') {
+            return json_decode($body);
+        }
+        return $body;
     }
 }

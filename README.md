@@ -52,13 +52,7 @@ Retrieve a filtered list of products,
 ```php
 $mage = new \Alanaktion\Magento\Client();
 $mage->catalog->product->search([
-    'filterGroups' => [
-        [
-            'field' => 'type_id',
-            'value' => 'simple',
-            'conditionType' => 'eq',
-        ]
-    ]
+    'pageSize' => 50
 ]);
 ```
 
