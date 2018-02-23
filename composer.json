@@ -1,0 +1,31 @@
+{
+    "name": "alanaktion/laravel-magento",
+    "description": "A Laravel package wrapping the Magento 2 REST API",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/Alanaktion/laravel-magento/issues",
+        "source": "https://github.com/Alanaktion/laravel-magento"
+    },
+    "authors": [
+        {
+            "name": "Alan Hardman",
+            "email": "alan@phpizza.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.3",
+        "guzzlehttp/guzzle": "~6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Alanaktion\\Magento\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Alanaktion\\Magento\\MagentoServiceProvider"
+            ]
+        }
+    }
+}
